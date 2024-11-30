@@ -1,0 +1,15 @@
+<h1>{{ beer.name }}</h1>
+<p>Brand: {{ beer.brand }}</p>
+<p>Price: {{ beer.price }}$</p>
+<p>Description: {{ beer.description }}</p>
+
+<h2>Reviews:</h2>
+<ul>
+    {% for review in beer.reviews.all %}
+        <li>{{ review.user.username }}: {{ review.comment }} ({{ review.rating }}/5)</li>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_review' beer.id %}">Add a Review</a>

@@ -1,0 +1,8 @@
+<h1>Beer Catalog</h1>
+<ul>
+    {% for beer in beers %}
+        <li>
+            <a href="{% url 'beer_detail' beer.id %}">{{ beer.name }}</a> - {{ beer.price }}$
+        </li>
+    {% endfor %}
+</ul>
