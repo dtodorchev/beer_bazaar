@@ -1,3 +1,37 @@
-<h1>Welcome to Beer Bazaar</h1>
-<p>Browse our wide selection of beers.</p>
-<a href="{% url 'beer_list' %}">View Beers</a>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Beer Bazaar{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="text-center bg-dark text-light py-5">
+    <div class="container">
+        <h1>Welcome to Beer Bazaar</h1>
+        <p class="lead">Discover the finest beers from around the world.</p>
+        <a href="{% url 'beer_list' %}" class="btn btn-primary btn-lg">Shop Now</a>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section id="featured-products" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Beers</h2>
+        <div class="row">
+            {% for beer in featured_beers %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="{{ beer.image.url }}" class="card-img-top" alt="{{ beer.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ beer.name }}</h5>
+                        <p class="card-text">{{ beer.description|truncatewords:10 }}</p>
+                        <p class="text-primary font-weight-bold">${{ beer.price }}</p>
+                        <a href="{% url 'beer_detail' beer.id %}" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

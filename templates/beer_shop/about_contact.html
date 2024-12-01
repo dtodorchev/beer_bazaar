@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us & Contact - Beer Bazaar{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>About Us</h1>
+    <p>Welcome to Beer Bazaar! We are passionate about bringing you the finest beers from around the world.</p>
+    <p>Our mission is to celebrate the art of brewing and connect beer enthusiasts everywhere.</p>
+
+    <h2>Contact Us</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}

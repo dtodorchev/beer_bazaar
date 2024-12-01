@@ -1,9 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Beer, Review, Order, Category
-
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone_number', 'address')
+from .models import Beer, Review, Order, Category
 
 @admin.register(Beer)
 class BeerAdmin(admin.ModelAdmin):
