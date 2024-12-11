@@ -6,3 +6,13 @@ nav {
     display: flex;
     justify-content: center;
 }
+
+main {
+    flex: 1; /* Push the footer to the bottom */
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    color: #fff;
+}

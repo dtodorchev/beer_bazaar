@@ -1,23 +1,71 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
-<h1>{{ beer.name }}</h1>
-<p>Brand: {{ beer.brand }}</p>
-<img src="{{ beer.image.url }}" alt="{{ beer.name }}" style="max-width: 200px;">
-<p>Price: {{ beer.price }}$</p>
-<p>Description: {{ beer.description }}</p>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Image Section -->
+        <div class="col-md-4">
+            <img src="{{ beer.image.url }}" alt="{{ beer.name }}" class="img-fluid rounded shadow-sm">
+        </div>
+        <!-- Details Section -->
+        <div class="col-md-8">
+            <h1>{{ beer.name }}</h1>
+            <p><strong>Brand:</strong> {{ beer.brand }}</p>
+            <p><strong>Price:</strong> {{ beer.price }}$</p>
+            <p><strong>Description:</strong> {{ beer.description }}</p>
+        </div>
+    </div>
 
-<h2>Reviews:</h2>
-<ul>
-    {% for review in beer.reviews.all %}
-        <li>{{ review.user.username }}: {{ review.comment }} ({{ review.rating }}/5)</li>
-    {% empty %}
-        <p>No reviews yet.</p>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'add_review' beer.id %}">Add a Review</a>
-
+    <div class="mt-4">
+        <h2>Reviews:</h2>
+        <ul class="list-unstyled">
+            {% for review in beer.reviews.all %}
+                <li class="d-flex align-items-center mb-3">
+                    {% if review.user.userprofile.avatar %}
+                        <img src="{{ review.user.userprofile.avatar.url }}" alt="{{ review.user.username }}'s avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                    {% else %}
+                        <img src="/media/avatars/default_avatar.png" alt="Default avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                    {% endif %}
+                    <div>
+                        <strong>{{ review.user.username }}</strong>: {{ review.comment }} ({{ review.rating }}/5)
+                    </div>
+                </li>
+            {% empty %}
+                <p>No reviews yet.</p>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'add_review' beer.id %}" class="btn btn-primary mt-3">Add a Review</a>
+    </div>
+</div>
 {% endblock %}
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% load static %}#}
+{##}
+{#{% block content %}#}
+{#<h1>{{ beer.name }}</h1>#}
+{#<p>Brand: {{ beer.brand }}</p>#}
+{#<img src="{{ beer.image.url }}" alt="{{ beer.name }}" style="max-width: 200px;">#}
+{#<p>Price: {{ beer.price }}$</p>#}
+{#<p>Description: {{ beer.description }}</p>#}
+{#<h2>Reviews:</h2>#}
+{#<ul class="list-unstyled">#}
+{#    {% for review in beer.reviews.all %}#}
+{#        <li class="d-flex align-items-center mb-3">#}
+{#            {% if review.user.userprofile.avatar %}#}
+{#                <img src="{{ review.user.userprofile.avatar.url }}" alt="{{ review.user.username }}'s avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">#}
+{#            {% else %}#}
+{#                <img src="/media/avatars/default_avatar.png" alt="Default avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">#}
+{#            {% endif %}#}
+{#            <div>#}
+{#                <strong>{{ review.user.username }}</strong>: {{ review.comment }} ({{ review.rating }}/5)#}
+{#            </div>#}
+{#        </li>#}
+{#    {% empty %}#}
+{#        <p>No reviews yet.</p>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{##}
+{#{% endblock %}#}

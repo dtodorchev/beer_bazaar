@@ -13,8 +13,10 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'users/edit_profile.html'
     success_url = reverse_lazy('home')
 
-    def get_object(self):
-        return UserProfile.objects.get(user=self.request.user)
+    def get_object(self, queryset=None):
+        # Get or create the UserProfile for the logged-in user
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
 
 
 
