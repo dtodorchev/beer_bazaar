@@ -1,5 +1,11 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
 <h1>{{ beer.name }}</h1>
 <p>Brand: {{ beer.brand }}</p>
+<img src="{{ beer.image.url }}" alt="{{ beer.name }}" style="max-width: 200px;">
 <p>Price: {{ beer.price }}$</p>
 <p>Description: {{ beer.description }}</p>
 
@@ -13,3 +19,5 @@
 </ul>
 
 <a href="{% url 'add_review' beer.id %}">Add a Review</a>
+
+{% endblock %}

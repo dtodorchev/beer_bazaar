@@ -1,31 +1,58 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Register{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Register</li>
-        </ol>
-    </nav>
-    <h2 class="mb-4">Register</h2>
-
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field in form %}
-            {% for error in field.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-            {% endfor %}
-        </ul>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Register</h2>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.username.label_tag }}
+                            {{ form.username|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label_tag }}
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password1.label_tag }}
+                            {{ form.password1|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password2.label_tag }}
+                            {{ form.password2|add_class:"form-control" }}
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endif %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
 </div>
 {% endblock %}
+

@@ -4,6 +4,8 @@ from django.views.generic.edit import UpdateView, CreateView
 from .forms import CustomUserCreationForm
 from .models import UserProfile
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth import login
+from django.shortcuts import redirect
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = UserProfile
@@ -19,8 +21,12 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('login')
 
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect(reverse_lazy('home'))
 
 
 class CustomLogoutView(LogoutView):

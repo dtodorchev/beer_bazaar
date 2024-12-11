@@ -1,8 +1,21 @@
-<h1>Your Orders</h1>
-<ul>
-    {% for order in orders %}
+{% extends 'base.html' %}
+
+{% block title %}Your Orders{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Your Orders</h1>
+    <ul>
+        {% for order in orders %}
         <li>
-            Order #{{ order.id }} - Total: {{ order.total_price }}$ ({{ order.status }})
+            <strong>Order #{{ order.id }}</strong> - ${{ order.total_price }} - {{ order.created_at }}
+            <ul>
+                {% for item in order.items.all %}
+                <li>{{ item.quantity }} x {{ item.beer.name }}</li>
+                {% endfor %}
+            </ul>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
