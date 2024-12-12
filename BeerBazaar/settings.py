@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "beer_shop.apps.BeerShopConfig",
     "users.apps.UsersConfig",
     "widget_tweaks",
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

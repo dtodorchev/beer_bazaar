@@ -95,8 +95,10 @@ def add_to_cart(request, beer_id):
     cart, _ = Cart.objects.get_or_create(user=request.user)
     cart_item, created = CartItem.objects.get_or_create(cart=cart, beer=beer)
     if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+        cart_item.quantity += int(request.POST.get('quantity', 1))
+    else:
+        cart_item.quantity = int(request.POST.get('quantity', 1))
+    cart_item.save()
     return redirect('cart')
 
 @login_required
